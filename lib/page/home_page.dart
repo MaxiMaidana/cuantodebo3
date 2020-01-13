@@ -10,12 +10,8 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
 
   int _monto = 0;
-  int _contador = 0;
   String _nombre = '';
   Map<String,int> _personasMap = {};
-  List<String> _lista1;
-  List<int> _lista2;
-  List _lista3;
   final myController = TextEditingController();
   final myControllerInt = TextEditingController();
 
@@ -30,9 +26,7 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Cuanto Debo'),
           centerTitle: true,
@@ -64,12 +58,11 @@ class _HomePage extends State<HomePage> {
                 )
               ),
            Divider(),
-           botonDeEnviar()
+           //botonDeEnviar()
           ]
         ),
         floatingActionButton: botones(),
-      )
-    );
+      );
   }
 
 
@@ -80,15 +73,14 @@ class _HomePage extends State<HomePage> {
         SizedBox(width: 30),
         FloatingActionButton(
             onPressed: (){
-              _lista1.add(_nombre);
-              _lista2.add(_monto);
+              return _mostrarAlerta(context);
             },
             child: Icon(Icons.cloud_done)
         ),
         Expanded(child: SizedBox()),
         FloatingActionButton(
             onPressed: (){
-              return _mostrarAlerta(context);
+              _personasMap.addAll({_nombre : _monto});
             },
             child: Icon(Icons.add)
         )
@@ -100,6 +92,11 @@ class _HomePage extends State<HomePage> {
     showDialog(
       context: context,
       barrierDismissible: true,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Ponga la torta ratas'),
+        );
+      }
 
 
     );
